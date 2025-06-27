@@ -1,47 +1,3 @@
-# import os
-# from dotenv import load_dotenv
-# from langchain.vectorstores import FAISS
-# from langchain.embeddings import SentenceTransformerEmbeddings
-# from langchain.docstore.document import Document
-# from langchain.llms import OpenAI
-# from langchain.chains import RetrievalQA
-
-# load_dotenv()
-
-# # Load knowledge base
-# def load_docs(file_path='products.txt'):
-#     with open(file_path, 'r') as f:
-#         lines = f.readlines()
-#     return [Document(page_content=line.strip()) for line in lines if line.strip()]
-
-# # Build vector index
-# def build_retriever():
-#     docs = load_docs()
-#     embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-#     db = FAISS.from_documents(docs, embeddings)
-#     retriever = db.as_retriever(search_kwargs={"k": 2})
-#     return retriever
-
-# # Create RAG pipeline
-# def create_rag_bot():
-#     retriever = build_retriever()
-#     llm = OpenAI(temperature=0, openai_api_key=os.getenv("OPENAI_API_KEY"))
-#     qa_chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
-#     return qa_chain
-
-# # Get response
-# def ask_question(question):
-#     bot = create_rag_bot()
-#     return bot.run(question)
-
-
-
-
-
-
-
-
-
 import os
 from dotenv import load_dotenv
 
@@ -75,7 +31,7 @@ def build_retriever():
 # Create RAG pipeline
 def create_rag_bot():
     retriever = build_retriever()
-    llm = OpenAI(temperature=0, openai_api_key=os.getenv("OPENAI_API_KEY"))
+    llm = OpenAI(temperature=0, openai_api_key=st.secrets["OPENAI_API_KEY"])
     qa_chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
     return qa_chain
 
